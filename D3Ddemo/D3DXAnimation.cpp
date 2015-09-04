@@ -191,7 +191,6 @@ bool CD3DXAnimation::Init(LPCTSTR filename)
 
 void CD3DXAnimation::SetAnimationByName(LPCTSTR name)
 {
-	LPD3DXANIMATIONSET pAnimationSet = NULL;
 	m_pAnimController->GetAnimationSetByName(name, &pAnimationSet);
 	m_pAnimController->SetTrackAnimationSet((UINT)1.0, pAnimationSet);
 }

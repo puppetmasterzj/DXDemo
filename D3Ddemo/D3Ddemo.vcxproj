@@ -88,6 +88,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllocateHierarchy.h" />
+    <ClInclude Include="AnimInstance.h" />
+    <ClInclude Include="CameraImpl.h" />
     <ClInclude Include="CameraKernel.h" />
     <ClInclude Include="D3Ddemo.h" />
     <ClInclude Include="D3DXAnimation.h" />
@@ -98,10 +100,13 @@
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="TempDebug.h" />
     <ClInclude Include="Terrain.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AllocateHierarchy.cpp" />
+    <ClCompile Include="AnimInstance.cpp" />
+    <ClCompile Include="CameraImpl.cpp" />
     <ClCompile Include="CameraKernel.cpp" />
     <ClCompile Include="D3Ddemo.cpp" />
     <ClCompile Include="D3DXAnimation.cpp" />

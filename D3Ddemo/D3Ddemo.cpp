@@ -10,6 +10,8 @@
 #include "SkyBox.h"
 #include "Particle.h"
 #include "D3DXAnimation.h"
+#include "AnimInstance.h"
+#include <time.h>
 
 #define MAX_LOADSTRING 100
 
@@ -35,6 +37,8 @@ CMesh*        g_pMesh2       = NULL;	//网格对象指针2
 CMesh*        g_pMesh3       = NULL;	//网格对象指针3
 CD3DXAnimation* g_pAnimation = NULL;	//动画网格对象指针1
 CD3DXAnimation* g_pAnimation1 = NULL;	//动画网格对象指针2
+std::vector<CAnimInstance*> g_pAnimVector;//动画实例指针容器
+
 
 D3DXMATRIX g_matWorld;					//世界矩阵
 
@@ -95,7 +99,7 @@ void onCreatD3D()
 	g_pDevice->SetRenderState(D3DRS_ZFUNC, D3DCMP_LESS);   //将深度测试函数设为D3DCMP_LESS
 	g_pDevice->SetRenderState(D3DRS_ZWRITEENABLE, true);     //深度测试成功后，更新深度缓存
 
-
+	D3DXMatrixTranslation(&g_matWorld, 0.0F, 0.0F, 0.0F);
 }
 
 void CreateMesh()
@@ -127,12 +131,34 @@ void CreateAnimationMesh()
 	g_pAnimation1 = new CD3DXAnimation(g_pDevice);
 	g_pAnimation1->Init("tiny_4anim.x");
 
+<<<<<<< HEAD
 	//如果只有一个动画的话，可以不使用下面的东东
 	/*LPD3DXANIMATIONSET p_AnimationSet = NULL;
 	g_pAnimController->GetAnimationSetByName("sworddance", &p_AnimationSet);
 	g_pAnimController->SetTrackAnimationSet((UINT)1.0, p_AnimationSet);*/
 
 	g_pAnimation1->SetAnimationByName("Jog");
+=======
+	D3DXMATRIX matWorld1, matWorld2, matWorld3, matWorld4, matWorld5;  
+	D3DXMatrixRotationX(&matWorld2, -90.0f);
+	D3DXMatrixRotationZ(&matWorld1, 180.0f);
+	D3DXMatrixRotationY(&matWorld5, -30.0f);
+	D3DXMatrixScaling(&matWorld3, 0.1f, 0.1f, 0.1f);
+	matWorld1 = matWorld3 * matWorld1 *matWorld2 * matWorld5;
+	
+	srand((int)time(0));
+
+	for (int i = 0; i < 3; i++)
+	{
+		CAnimInstance* instance = new CAnimInstance();
+		instance->Init(g_pAnimation1);
+		D3DXMatrixTranslation(&matWorld4, i * 15.0f, -20.0f, 0.0f);  
+		instance->SetMatrix(&(matWorld1 * matWorld4));
+		instance->PlayAnimation(instance->GetAnimationSet(rand()%4)->GetName(), true);
+		g_pAnimVector.push_back(instance);
+	}
+	
+>>>>>>> origin/master
 }
 
 void SetLight()
@@ -164,7 +190,7 @@ void onInit()
 	onCreatD3D();
 
 	//创建Mesh模型
-	//CreateMesh();
+	CreateMesh();
 
 	//创建摄像机
 	CreateCamera();
@@ -235,19 +261,14 @@ void onRender(float fElasedTime)
 
 	g_pDevice->BeginScene();
 
-	D3DXMATRIX matWorld1, matWorld2, matWorld3;  
-	D3DXMatrixTranslation(&matWorld1, 50.0f, -20.0f, 0.0f);  
-	D3DXMatrixTranslation(&matWorld2, -50.0f, 0.0f, 0.0f);
-	D3DXMatrixScaling(&matWorld3, 0.1f, 0.1f, 0.1f);
-	matWorld2 = matWorld2 * matWorld3;
+	g_pMesh1->DrawMesh(g_matWorld);
+	
 
-	g_pAnimation->SetMatrix(&matWorld1);
-	g_pAnimation->UpdateAnimation(fElasedTime * 1);
-	g_pAnimation->Render();
-
-	g_pAnimation1->SetMatrix(&matWorld2);
-	g_pAnimation1->UpdateAnimation(fElasedTime * 1);
-	g_pAnimation1->Render();
+	for (int i = 0; i < g_pAnimVector.size(); i++)
+	{
+		g_pAnimVector[i]->Update(fElasedTime);
+		g_pAnimVector[i]->Render();
+	}
 
 	g_pDevice->EndScene();
 

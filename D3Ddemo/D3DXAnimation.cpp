@@ -1,13 +1,14 @@
 #include "stdafx.h"
 #include "D3DXAnimation.h"
+#include "TempDebug.h"
 
 
 CD3DXAnimation::CD3DXAnimation(IDirect3DDevice9* device)
 	:m_pDevice(device),
 	 m_pAllocateHier(NULL),
 	 m_pAnimController(NULL),
-	 m_pFrameRoot(NULL),
-	 m_pBoneMatrix(NULL)
+	 m_pFrameRoot(NULL)
+	// m_BoneMatrix(NULL)
 {
 }
 
@@ -185,29 +186,32 @@ bool CD3DXAnimation::Init(LPCTSTR filename)
 	m_pAllocateHier = new CAllocateHierarchy();
 	D3DXLoadMeshHierarchyFromX(filename, D3DXMESH_MANAGED, m_pDevice, m_pAllocateHier, NULL, &m_pFrameRoot, &m_pAnimController);
 	SetupBoneMatrixPointers(m_pFrameRoot, m_pFrameRoot);
-
 	return true;
 }
 
-void CD3DXAnimation::SetAnimationByName(LPCTSTR name)
-{
-	LPD3DXANIMATIONSET pAnimationSet = NULL;
-	m_pAnimController->GetAnimationSetByName(name, &pAnimationSet);
-	m_pAnimController->SetTrackAnimationSet((UINT)1.0, pAnimationSet);
-}
 
-void CD3DXAnimation::SetMatrix(LPD3DXMATRIX mtrix)
-{
-	UpdateFrameMatrices(m_pFrameRoot, mtrix);
-}
 
-void CD3DXAnimation::UpdateAnimation(double timeDelay)
+void CD3DXAnimation::Render(const LPD3DXMATRIX matrix)
 {
-	m_pAnimController->AdvanceTime(timeDelay, NULL);
-}
-
-void CD3DXAnimation::Render()
-{
+	//m_pDevice->SetTransform(D3DTS_WORLD, matrix);
+	UpdateFrameMatrices(m_pFrameRoot, matrix);
 	DrawFrame(m_pDevice, m_pFrameRoot);
+}
+
+
+LPD3DXANIMATIONCONTROLLER CD3DXAnimation::CloneAnimCtrl(void)
+{
+	//克隆一个动画控制器，真正使用的是克隆的动画控制器，而并非原始的动画控制器，原始的动画控制器仅供克隆。
+	LPD3DXANIMATIONCONTROLLER pControl = NULL;
+	if(FAILED(m_pAnimController->CloneAnimationController( 
+		m_pAnimController->GetMaxNumAnimationOutputs(),
+		m_pAnimController->GetMaxNumAnimationSets(),
+		m_pAnimController->GetMaxNumTracks(),
+		m_pAnimController->GetMaxNumEvents(),
+		&pControl )))
+	{
+		return NULL;
+	}
+	return pControl;
 }
 

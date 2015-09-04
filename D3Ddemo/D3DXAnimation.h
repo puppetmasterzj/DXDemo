@@ -4,7 +4,8 @@
  * \author puppet_master
  * \date 九月 2015
  *
- * \封装了微软自带的骨骼动画相关功能，提供一个简单的接口供使用
+ * \封装了微软自带的骨骼动画相关功能,内部包含读取骨骼动画，播放等功能。
+ * \不可以直接使用，需要克隆一个动画控制器，创建单独的实例才可以使用
  */
 
 #ifndef __D3DXANIMATION_H_
@@ -19,7 +20,6 @@ private:
 	CAllocateHierarchy* m_pAllocateHier;			//骨骼动画网格模型指针
 	LPD3DXFRAME			m_pFrameRoot;				//帧
 	LPD3DXANIMATIONCONTROLLER m_pAnimController;	//动画控制器
-	D3DXMATRIX*			m_pBoneMatrix;				//骨骼矩阵
 private:
 	//一些微软自带函数，关于骨骼动画加载与绘制更新的函数，将其封装，不使用这些接口
 
@@ -36,17 +36,12 @@ public:
 	//创建骨骼动画
 	bool Init(LPCTSTR filename);
 
-	//通过名字设置要播放的骨骼动画
-	void SetAnimationByName(LPCTSTR name);
-
-	//更新位置
-	void SetMatrix(LPD3DXMATRIX mtrix);
-
-	//更新动画
-	void UpdateAnimation(double timeDelay);
+	//复制骨骼动画控制器
+	LPD3DXANIMATIONCONTROLLER CloneAnimCtrl(void);
 
 	//绘制骨骼动画
-	void Render();
+	void Render(const LPD3DXMATRIX matrix);
+
 };
 
 #endif

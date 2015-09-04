@@ -131,14 +131,6 @@ void CreateAnimationMesh()
 	g_pAnimation1 = new CD3DXAnimation(g_pDevice);
 	g_pAnimation1->Init("tiny_4anim.x");
 
-<<<<<<< HEAD
-	//如果只有一个动画的话，可以不使用下面的东东
-	/*LPD3DXANIMATIONSET p_AnimationSet = NULL;
-	g_pAnimController->GetAnimationSetByName("sworddance", &p_AnimationSet);
-	g_pAnimController->SetTrackAnimationSet((UINT)1.0, p_AnimationSet);*/
-
-	g_pAnimation1->SetAnimationByName("Jog");
-=======
 	D3DXMATRIX matWorld1, matWorld2, matWorld3, matWorld4, matWorld5;  
 	D3DXMatrixRotationX(&matWorld2, -90.0f);
 	D3DXMatrixRotationZ(&matWorld1, 180.0f);
@@ -157,8 +149,6 @@ void CreateAnimationMesh()
 		instance->PlayAnimation(instance->GetAnimationSet(rand()%4)->GetName(), true);
 		g_pAnimVector.push_back(instance);
 	}
-	
->>>>>>> origin/master
 }
 
 void SetLight()

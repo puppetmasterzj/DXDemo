@@ -20,11 +20,6 @@ private:
 	CAllocateHierarchy* m_pAllocateHier;			//骨骼动画网格模型指针
 	LPD3DXFRAME			m_pFrameRoot;				//帧
 	LPD3DXANIMATIONCONTROLLER m_pAnimController;	//动画控制器
-<<<<<<< HEAD
-	D3DXMATRIX*			m_pBoneMatrix;				//骨骼矩阵
-	LPD3DXANIMATIONSET pAnimationSet;
-=======
->>>>>>> origin/master
 private:
 	//一些微软自带函数，关于骨骼动画加载与绘制更新的函数，将其封装，不使用这些接口
 

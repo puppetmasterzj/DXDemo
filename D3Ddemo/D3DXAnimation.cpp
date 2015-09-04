@@ -189,16 +189,6 @@ bool CD3DXAnimation::Init(LPCTSTR filename)
 	return true;
 }
 
-<<<<<<< HEAD
-void CD3DXAnimation::SetAnimationByName(LPCTSTR name)
-{
-	m_pAnimController->GetAnimationSetByName(name, &pAnimationSet);
-	m_pAnimController->SetTrackAnimationSet((UINT)1.0, pAnimationSet);
-}
-=======
->>>>>>> origin/master
-
-
 void CD3DXAnimation::Render(const LPD3DXMATRIX matrix)
 {
 	//m_pDevice->SetTransform(D3DTS_WORLD, matrix);

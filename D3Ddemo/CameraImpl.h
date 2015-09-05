@@ -9,17 +9,27 @@
 #ifndef __CAMERAIMPL_H_
 #define __CAMERAIMPL_H_
 
+#include "CameraKernel.h"
+
 class CameraImpl
 {
+private:
+	CCameraKernel* m_pKernel;	//摄像机核心指针
 public:
 	CameraImpl(void);
 	virtual ~CameraImpl(void);
 
 	//初始化
+	virtual void Init(CCameraKernel* kernel) = 0;
+
+	//重置
+	virtual void Reset() = 0;
 
 	//更新
+	virtual void Update() = 0;
 
-	//
+	//操作
+	virtual void OnEvent() = 0;
 };
 
 #endif

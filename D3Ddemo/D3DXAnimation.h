@@ -1,5 +1,5 @@
 /*!
- * \file AllocateHierarchy.h
+ * \file D3DXAnimation.h
  *
  * \author puppet_master
  * \date ╬етб 2015

@@ -54,7 +54,9 @@
     <ClInclude Include="AnimInstance.h">
       <Filter>Animation</Filter>
     </ClInclude>
-    <ClInclude Include="CameraImpl.h" />
+    <ClInclude Include="CameraImpl.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AllocateHierarchy.cpp">
@@ -86,7 +88,9 @@
     <ClCompile Include="AnimInstance.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
-    <ClCompile Include="CameraImpl.cpp" />
+    <ClCompile Include="CameraImpl.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="D3Ddemo.rc">

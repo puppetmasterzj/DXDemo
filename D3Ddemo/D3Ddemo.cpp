@@ -90,7 +90,7 @@ void onCreatD3D()
 	g_pDevice->SetRenderState(D3DRS_ZENABLE, true);
 
 	//ÉèÖÃäÖÈ¾×´Ì¬£¬¹Ø±ÕµÆ¹â
-	g_pDevice->SetRenderState(D3DRS_LIGHTING, false);
+	g_pDevice->SetRenderState(D3DRS_LIGHTING, true);
 
 	//ÉèÖÃäÖÈ¾×´Ì¬£¬²Ã¼ôÄ£Ê½
 	g_pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
@@ -105,7 +105,7 @@ void onCreatD3D()
 void CreateMesh()
 {
 	g_pMesh1 = new CMesh(g_pDevice);
-	g_pMesh1->CreateMesh("dragon.X");
+	g_pMesh1->CreateMesh("visker.X");
 
 	g_pMesh2 = new CMesh(g_pDevice);
 	g_pMesh2->CreateMesh("dragon.X");
@@ -136,11 +136,11 @@ void CreateAnimationMesh()
 	D3DXMatrixRotationZ(&matWorld1, 180.0f);
 	D3DXMatrixRotationY(&matWorld5, -30.0f);
 	D3DXMatrixScaling(&matWorld3, 0.1f, 0.1f, 0.1f);
-	matWorld1 = matWorld3 * matWorld1 *matWorld2 * matWorld5;
+	matWorld1 = matWorld3 * matWorld1 *matWorld2;
 	
 	srand((int)time(0));
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 50; i++)
 	{
 		CAnimInstance* instance = new CAnimInstance();
 		instance->Init(g_pAnimation1);
@@ -165,7 +165,7 @@ void SetLight()
 	light.Attenuation0  = 1.0f;
 	light.Attenuation1  = 0.0f;
 	light.Attenuation2  = 0.0f;
-	light.Range			= 500.0f;
+	light.Range			= 5000.0f;
 	g_pDevice->SetLight(0, &light);
 	g_pDevice->LightEnable(0, true);
 	g_pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, true);
@@ -251,7 +251,7 @@ void onRender(float fElasedTime)
 
 	g_pDevice->BeginScene();
 
-	g_pMesh1->DrawMesh(g_matWorld);
+	//g_pMesh1->DrawMesh(g_matWorld);
 	
 
 	for (int i = 0; i < g_pAnimVector.size(); i++)

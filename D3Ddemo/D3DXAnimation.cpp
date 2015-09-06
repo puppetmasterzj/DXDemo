@@ -181,12 +181,18 @@ void CD3DXAnimation::UpdateFrameMatrices( LPD3DXFRAME pFrameBase, LPD3DXMATRIX p
 //Desc:关于动画的创建，更新，绘制
 //---------------------------------------------------------
 
-bool CD3DXAnimation::Init(LPCTSTR filename)
+HRESULT CD3DXAnimation::Init(LPCTSTR filename)
 {
 	m_pAllocateHier = new CAllocateHierarchy();
-	D3DXLoadMeshHierarchyFromX(filename, D3DXMESH_MANAGED, m_pDevice, m_pAllocateHier, NULL, &m_pFrameRoot, &m_pAnimController);
-	SetupBoneMatrixPointers(m_pFrameRoot, m_pFrameRoot);
-	return true;
+	HRESULT hr = D3DXLoadMeshHierarchyFromX(filename, D3DXMESH_MANAGED, m_pDevice, m_pAllocateHier, NULL, &m_pFrameRoot, &m_pAnimController);
+	if (hr == S_OK)
+	{
+		return SetupBoneMatrixPointers(m_pFrameRoot, m_pFrameRoot);
+	}
+	else
+	{
+		return hr;
+	}
 }
 
 void CD3DXAnimation::Render(const LPD3DXMATRIX matrix)

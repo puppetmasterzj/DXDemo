@@ -105,13 +105,13 @@ void onCreatD3D()
 void CreateMesh()
 {
 	g_pMesh1 = new CMesh(g_pDevice);
-	g_pMesh1->CreateMesh("visker.X");
+	g_pMesh1->CreateMesh("dan.X");
 
-	g_pMesh2 = new CMesh(g_pDevice);
-	g_pMesh2->CreateMesh("dragon.X");
+	//g_pMesh2 = new CMesh(g_pDevice);
+	//g_pMesh2->CreateMesh("dragon.X");
 
-	g_pMesh3 = new CMesh(g_pDevice);
-	g_pMesh3->CreateMesh("tiny.x");
+	//g_pMesh3 = new CMesh(g_pDevice);
+	//g_pMesh3->CreateMesh("tiny.x");
 }
 
 void CreateCamera()
@@ -125,30 +125,37 @@ void CreateCamera()
 
 void CreateAnimationMesh()
 {
-	g_pAnimation = new CD3DXAnimation(g_pDevice);
-	g_pAnimation->Init("lxq.X");
+	//g_pAnimation = new CD3DXAnimation(g_pDevice);
+	//g_pAnimation->Init("lxq.X");
 
 	g_pAnimation1 = new CD3DXAnimation(g_pDevice);
-	g_pAnimation1->Init("tiny_4anim.x");
-
-	D3DXMATRIX matWorld1, matWorld2, matWorld3, matWorld4, matWorld5;  
-	D3DXMatrixRotationX(&matWorld2, -90.0f);
-	D3DXMatrixRotationZ(&matWorld1, 180.0f);
-	D3DXMatrixRotationY(&matWorld5, -30.0f);
-	D3DXMatrixScaling(&matWorld3, 0.1f, 0.1f, 0.1f);
-	matWorld1 = matWorld3 * matWorld1 *matWorld2;
-	
-	srand((int)time(0));
-
-	for (int i = 0; i < 50; i++)
+	if (g_pAnimation1->Init("tiny.X") == S_OK)
 	{
-		CAnimInstance* instance = new CAnimInstance();
-		instance->Init(g_pAnimation1);
-		D3DXMatrixTranslation(&matWorld4, i * 15.0f, -20.0f, 0.0f);  
-		instance->SetMatrix(&(matWorld1 * matWorld4));
-		instance->PlayAnimation(instance->GetAnimationSet(rand()%4)->GetName(), true);
-		g_pAnimVector.push_back(instance);
+		D3DXMATRIX matWorld1, matWorld2, matWorld3, matWorld4, matWorld5;  
+		D3DXMatrixRotationX(&matWorld2, -90.0f);
+		D3DXMatrixRotationZ(&matWorld1, 180.0f);
+		D3DXMatrixRotationY(&matWorld5, -30.0f);
+		D3DXMatrixScaling(&matWorld3, 0.1f, 0.1f, 0.1f);
+		matWorld1 = matWorld3 * matWorld1 *matWorld2;
+
+		srand((int)time(0));
+
+		for (int i = 0; i < 1; i++)
+		{
+			CAnimInstance* instance = new CAnimInstance();
+			instance->Init(g_pAnimation1);
+			D3DXMatrixTranslation(&matWorld4, i * 15.0f, -20.0f, 0.0f);  
+			instance->SetMatrix(&(matWorld1 * matWorld4));
+			instance->PlayAnimation(instance->GetAnimationSet(rand()%1)->GetName(), true);
+			g_pAnimVector.push_back(instance);
+		}
 	}
+	else
+	{
+		MessageBox(g_hWnd, "读取模型失败", "error", NULL);
+	}
+
+	
 }
 
 void SetLight()
@@ -226,6 +233,14 @@ void onLogic(float fElapsedTime)
 	if (g_pDirectInput->IsKeyDown(DIK_J)) g_pCamera->RotationLookVec(-0.001f);
 	if (g_pDirectInput->IsKeyDown(DIK_L)) g_pCamera->RotationLookVec( 0.001f);
 
+
+	if (g_pDirectInput->IsKeyDown((DIK_P)))
+
+	{
+		delete g_pAnimVector[g_pAnimVector.size() - 1];
+		g_pAnimVector.pop_back();
+	}
+
 	//鼠标控制右向量和上向量的旋转
 	//g_pCamera->RotationUpVec(g_pDirectInput->MouseDX()* 0.001f);
 	//g_pCamera->RotationRightVec(g_pDirectInput->MouseDY() * 0.001f);
@@ -251,7 +266,7 @@ void onRender(float fElasedTime)
 
 	g_pDevice->BeginScene();
 
-	//g_pMesh1->DrawMesh(g_matWorld);
+	g_pMesh1->DrawMesh(g_matWorld);
 	
 
 	for (int i = 0; i < g_pAnimVector.size(); i++)

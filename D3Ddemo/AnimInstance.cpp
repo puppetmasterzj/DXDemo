@@ -9,6 +9,7 @@ CAnimInstance::CAnimInstance(void)
 
 CAnimInstance::~CAnimInstance(void)
 {
+	//delete m_pAnimController;
 }
 
 bool CAnimInstance::Init(CD3DXAnimation* mesh)

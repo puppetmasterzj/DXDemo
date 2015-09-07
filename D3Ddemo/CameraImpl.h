@@ -11,13 +11,28 @@
 
 class CameraImpl
 {
+	//摄像机类型
+	enum CamType	
+	{
+		FirstView = 0,	//第一人称视角
+		ThirdFirmView,	//第三人称视角（固定）
+		ThirdFreeView,	//第三人称视角（灵活）
+		GodView,		//上帝视角
+		TracView		//摄像机运镜
+	};
+
 public:
 	CameraImpl(void);
 	virtual ~CameraImpl(void);
 
 	//初始化
+	void Init();
 
 	//更新
+	void Update();
+
+	//重置
+	void Reset();
 
 	//
 };

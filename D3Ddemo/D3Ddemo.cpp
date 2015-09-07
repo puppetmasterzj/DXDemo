@@ -140,13 +140,13 @@ void CreateAnimationMesh()
 	
 	srand((int)time(0));
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		CAnimInstance* instance = new CAnimInstance();
-		instance->Init(g_pAnimation1);
-		D3DXMatrixTranslation(&matWorld4, i * 15.0f, -20.0f, 0.0f);  
-		instance->SetMatrix(&(matWorld1 * matWorld4));
-		instance->PlayAnimation(instance->GetAnimationSet(rand()%4)->GetName(), true);
+		instance->Init(g_pAnimation);
+		D3DXMatrixTranslation(&matWorld4, i * 20.0f, -20.0f, 0.0f);  
+		instance->SetMatrix(&(matWorld4));
+		instance->PlayAnimation(instance->GetAnimationSet(rand()%1)->GetName(), true);
 		g_pAnimVector.push_back(instance);
 	}
 }
@@ -257,6 +257,7 @@ void onRender(float fElasedTime)
 	for (int i = 0; i < g_pAnimVector.size(); i++)
 	{
 		g_pAnimVector[i]->Update(fElasedTime);
+		g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 		g_pAnimVector[i]->Render();
 	}
 

@@ -1,5 +1,5 @@
 /*!
- * \file AllocateHierarchy.h
+ * \file D3DXAnimation.h
  *
  * \author puppet_master
  * \date 九月 2015
@@ -34,7 +34,7 @@ public:
 	//提供给外界的接口
 
 	//创建骨骼动画
-	bool Init(LPCTSTR filename);
+	HRESULT Init(LPCTSTR filename);
 
 	//复制骨骼动画控制器
 	LPD3DXANIMATIONCONTROLLER CloneAnimCtrl(void);

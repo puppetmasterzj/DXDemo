@@ -22,6 +22,10 @@ public:
 	//绘制网格对象
 	void DrawMesh(const D3DXMATRIXA16& matWorld);
 
+	//获得原生网格资源指针
+	LPD3DXMESH GetMeshPointer()
+	{return m_pMesh;}
+
 	//更改模型的Alpha分量值
 	void AddAlphaValue();
 	void ReduceAlphaValue();

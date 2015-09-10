@@ -57,6 +57,7 @@
     <ClInclude Include="CameraImpl.h">
       <Filter>Camera</Filter>
     </ClInclude>
+    <ClInclude Include="Picking.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AllocateHierarchy.cpp">
@@ -91,6 +92,7 @@
     <ClCompile Include="CameraImpl.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
+    <ClCompile Include="Picking.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="D3Ddemo.rc">

@@ -42,7 +42,63 @@ std::vector<CAnimInstance*> g_pAnimVector;//动画实例指针容器
 
 D3DXMATRIX g_matWorld;					//世界矩阵
 
+D3DSURFACE_DESC g_pBackBuffer;
+D3DXVECTOR3 g_Mdesc;
+D3DXVECTOR3 g_Voc;
 
+BOOL pointCheck(HWND hWnd)
+{
+	D3DXVECTOR3			vPickRayOrig;
+	D3DXVECTOR3			vPickRayDir;
+	LPD3DXBUFFER		pAllHits1;
+	DWORD				CountOfHits1 = 0;
+	RECT			    WndRect;
+	POINT				ptCursor;
+	BOOL				hit;
+	GetCursorPos(&ptCursor);
+	//ClientToScreen(hWnd,&ptCursor);
+	GetWindowRect(hWnd,&WndRect);
+	if(ptCursor.x>WndRect.right||ptCursor.x<WndRect.left||ptCursor.y>WndRect.bottom||ptCursor.y<WndRect.top)
+	{
+		return NULL;
+	}
+	D3DXMATRIX matProj;
+	g_pDevice->GetTransform(D3DTS_PROJECTION, &matProj);
+	D3DXMATRIX matView;
+	g_pDevice->GetTransform(D3DTS_VIEW, &matView);
+	D3DXMATRIX matWorld;
+	g_pDevice->GetTransform(D3DTS_WORLD, &matWorld);
+
+	D3DXVECTOR3 v;
+
+	v.x =  ( ( ( 2.0f * ptCursor.x ) / g_pBackBuffer.Width  ) - 1 ) / matProj._11;
+	v.y = -( ( ( 2.0f * ptCursor.y ) / g_pBackBuffer.Height ) - 1 ) / matProj._22;
+	v.z =  1.0f;
+
+	D3DXMATRIX matWorldView =  matView;
+	D3DXMATRIX m;
+	D3DXMatrixInverse(&m, NULL, &matWorldView);
+
+	vPickRayDir.x  = v.x*m._11 + v.y*m._21 + v.z*m._31;
+	vPickRayDir.y  = v.x*m._12 + v.y*m._22 + v.z*m._32;
+	vPickRayDir.z  = v.x*m._13 + v.y*m._23 + v.z*m._33;
+
+	vPickRayOrig.x = m._41;
+	vPickRayOrig.y = m._42;
+	vPickRayOrig.z = m._43;
+
+	D3DXIntersect(g_pMesh1->GetMeshPointer(), &vPickRayOrig, &vPickRayDir, &hit, NULL, 
+		NULL, NULL, NULL, &pAllHits1, &CountOfHits1);
+	if(hit)
+	{
+		MessageBox(g_hWnd, "hehehe", "Hit!!", NULL);
+	}
+	else
+	{
+		return !hit;
+	}
+	return hit;
+}
 
 void onCreatD3D()
 {
@@ -86,6 +142,13 @@ void onCreatD3D()
 	if (!g_pDevice)
 		return;
 
+	//拾取相关，临时代码。BackBuffer
+	IDirect3DSurface9* pBackBuffer = NULL;
+	g_pDevice->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &pBackBuffer);
+	pBackBuffer->GetDesc(&g_pBackBuffer);
+	pBackBuffer->Release();
+
+
 	//设置渲染状态，设置启用深度值
 	g_pDevice->SetRenderState(D3DRS_ZENABLE, true);
 
@@ -105,7 +168,7 @@ void onCreatD3D()
 void CreateMesh()
 {
 	g_pMesh1 = new CMesh(g_pDevice);
-	g_pMesh1->CreateMesh("dan.X");
+	g_pMesh1->CreateMesh("dragon.X");
 
 	//g_pMesh2 = new CMesh(g_pDevice);
 	//g_pMesh2->CreateMesh("dragon.X");
@@ -150,7 +213,7 @@ void CreateAnimationMesh()
 =======
 		srand((int)time(0));
 
-		for (int i = 0; i < 1; i++)
+		for (int i = 0; i < 100; i++)
 		{
 			CAnimInstance* instance = new CAnimInstance();
 			instance->Init(g_pAnimation1);
@@ -267,6 +330,8 @@ void onLogic(float fElapsedTime)
 
 	//把正确的世界变换矩阵存到g_matWorld中
 	D3DXMatrixTranslation(&g_matWorld, 0.0f, 0.0f, fPosZ);
+
+	pointCheck(g_hWnd);
 }
 
 void onRender(float fElasedTime)

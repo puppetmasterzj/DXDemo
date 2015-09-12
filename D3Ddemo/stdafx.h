@@ -43,3 +43,11 @@
 #define SAFE_DELETE_ARRAY(p) { if(p) { delete[] (p);   (p)=NULL; } }
 #endif    
 // TODO: 在此处引用程序需要的其他头文件
+
+
+typedef D3DXVECTOR3 Vec3;
+typedef D3DXMATRIX  Matrix;
+typedef std::string String;
+
+
+

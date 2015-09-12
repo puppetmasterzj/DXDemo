@@ -4,7 +4,7 @@
 
 
 CD3DXAnimation::CD3DXAnimation(IDirect3DDevice9* device)
-	:m_pDevice(device),
+	:IRenderRes(device),
 	 m_pAllocateHier(NULL),
 	 m_pAnimController(NULL),
 	 m_pFrameRoot(NULL)
@@ -187,6 +187,7 @@ HRESULT CD3DXAnimation::Init(LPCTSTR filename)
 	HRESULT hr = D3DXLoadMeshHierarchyFromX(filename, D3DXMESH_MANAGED, m_pDevice, m_pAllocateHier, NULL, &m_pFrameRoot, &m_pAnimController);
 	if (hr == S_OK)
 	{
+		SetResourceName(filename);
 		return SetupBoneMatrixPointers(m_pFrameRoot, m_pFrameRoot);
 	}
 	else

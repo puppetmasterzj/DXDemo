@@ -17,6 +17,9 @@
     <Filter Include="InputSystem">
       <UniqueIdentifier>{57b9b61c-6243-4b75-9034-217962b8241a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Mesh">
+      <UniqueIdentifier>{f370ee14-e9fe-46d8-bcd7-29c2cd79cf18}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -28,9 +31,6 @@
     </ClInclude>
     <ClInclude Include="D3DXAnimation.h">
       <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>SceneSystem</Filter>
     </ClInclude>
     <ClInclude Include="Particle.h">
       <Filter>SceneSystem</Filter>
@@ -57,7 +57,19 @@
     <ClInclude Include="CameraImpl.h">
       <Filter>Camera</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="ApcD3DKernel.h" />
+=======
+    <ClInclude Include="Picking.h" />
+    <ClInclude Include="D3DXMesh.h">
+      <Filter>Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshInstance.h">
+      <Filter>Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="IRenderActor.h" />
+    <ClInclude Include="IRenderRes.h" />
+>>>>>>> origin/master
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AllocateHierarchy.cpp">
@@ -65,9 +77,6 @@
     </ClCompile>
     <ClCompile Include="D3DXAnimation.cpp">
       <Filter>Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>SceneSystem</Filter>
     </ClCompile>
     <ClCompile Include="Particle.cpp">
       <Filter>SceneSystem</Filter>
@@ -92,7 +101,19 @@
     <ClCompile Include="CameraImpl.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="ApcD3DKernel.cpp" />
+=======
+    <ClCompile Include="Picking.cpp" />
+    <ClCompile Include="D3DXMesh.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshInstance.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="IRenderActor.cpp" />
+    <ClCompile Include="IRenderRes.cpp" />
+>>>>>>> origin/master
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="D3Ddemo.rc">

@@ -94,9 +94,12 @@
     <ClInclude Include="D3Ddemo.h" />
     <ClInclude Include="D3DXAnimation.h" />
     <ClInclude Include="DirectInput.h" />
-    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="D3DXMesh.h" />
+    <ClInclude Include="IRenderRes.h" />
+    <ClInclude Include="MeshInstance.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="Picking.h" />
+    <ClInclude Include="IRenderActor.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="stdafx.h" />
@@ -112,9 +115,12 @@
     <ClCompile Include="D3Ddemo.cpp" />
     <ClCompile Include="D3DXAnimation.cpp" />
     <ClCompile Include="DirectInput.cpp" />
-    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="D3DXMesh.cpp" />
+    <ClCompile Include="IRenderRes.cpp" />
+    <ClCompile Include="MeshInstance.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="Picking.cpp" />
+    <ClCompile Include="IRenderActor.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

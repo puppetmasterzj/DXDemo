@@ -6,12 +6,14 @@
 #include "DirectInput.h"
 #include "CameraKernel.h"
 #include "Terrain.h"
-#include "Mesh.h"
+#include "D3DXMesh.h"
 #include "SkyBox.h"
 #include "Particle.h"
 #include "D3DXAnimation.h"
 #include "AnimInstance.h"
+#include "Picking.h"
 #include <time.h>
+#include "MeshInstance.h"
 
 #define MAX_LOADSTRING 100
 
@@ -32,73 +34,77 @@ LPDIRECT3D9 g_pD3D = NULL;				//D3D接口指针
 LPDIRECT3DDEVICE9 g_pDevice = NULL;		//D3D设备指针
 CDirectInput* g_pDirectInput = NULL;	//控制指针
 CCameraKernel*      g_pCamera = NULL;    //摄像机指针
-CMesh*        g_pMesh1       = NULL;	//网格对象指针1
-CMesh*        g_pMesh2       = NULL;	//网格对象指针2
-CMesh*        g_pMesh3       = NULL;	//网格对象指针3
+Picking*	  g_PickingSystem = NULL;	//拾取系统指针
+D3DXMesh*        g_pMesh1       = NULL;	//网格对象指针1
+D3DXMesh*        g_pMesh2       = NULL;	//网格对象指针2
+D3DXMesh*        g_pMesh3       = NULL;	//网格对象指针3
 CD3DXAnimation* g_pAnimation = NULL;	//动画网格对象指针1
 CD3DXAnimation* g_pAnimation1 = NULL;	//动画网格对象指针2
 std::vector<CAnimInstance*> g_pAnimVector;//动画实例指针容器
+std::vector<IRenderActor*> g_pActorVector;//可绘制网格实例指针容器
 
 
 D3DXMATRIX g_matWorld;					//世界矩阵
 
-D3DSURFACE_DESC g_pBackBuffer;
-D3DXVECTOR3 g_Mdesc;
-D3DXVECTOR3 g_Voc;
+BoundingSphere g_BoundingSphere;
 
-BOOL pointCheck(HWND hWnd)
-{
-	D3DXVECTOR3			vPickRayOrig;
-	D3DXVECTOR3			vPickRayDir;
-	LPD3DXBUFFER		pAllHits1;
-	DWORD				CountOfHits1 = 0;
-	RECT			    WndRect;
-	POINT				ptCursor;
-	BOOL				hit;
-	GetCursorPos(&ptCursor);
-	//ClientToScreen(hWnd,&ptCursor);
-	GetWindowRect(hWnd,&WndRect);
-	if(ptCursor.x>WndRect.right||ptCursor.x<WndRect.left||ptCursor.y>WndRect.bottom||ptCursor.y<WndRect.top)
-	{
-		return NULL;
-	}
-	D3DXMATRIX matProj;
-	g_pDevice->GetTransform(D3DTS_PROJECTION, &matProj);
-	D3DXMATRIX matView;
-	g_pDevice->GetTransform(D3DTS_VIEW, &matView);
-	D3DXMATRIX matWorld;
-	g_pDevice->GetTransform(D3DTS_WORLD, &matWorld);
-
-	D3DXVECTOR3 v;
-
-	v.x =  ( ( ( 2.0f * ptCursor.x ) / g_pBackBuffer.Width  ) - 1 ) / matProj._11;
-	v.y = -( ( ( 2.0f * ptCursor.y ) / g_pBackBuffer.Height ) - 1 ) / matProj._22;
-	v.z =  1.0f;
-
-	D3DXMATRIX matWorldView =  matView;
-	D3DXMATRIX m;
-	D3DXMatrixInverse(&m, NULL, &matWorldView);
-
-	vPickRayDir.x  = v.x*m._11 + v.y*m._21 + v.z*m._31;
-	vPickRayDir.y  = v.x*m._12 + v.y*m._22 + v.z*m._32;
-	vPickRayDir.z  = v.x*m._13 + v.y*m._23 + v.z*m._33;
-
-	vPickRayOrig.x = m._41;
-	vPickRayOrig.y = m._42;
-	vPickRayOrig.z = m._43;
-
-	D3DXIntersect(g_pMesh1->GetMeshPointer(), &vPickRayOrig, &vPickRayDir, &hit, NULL, 
-		NULL, NULL, NULL, &pAllHits1, &CountOfHits1);
-	if(hit)
-	{
-		MessageBox(g_hWnd, "hehehe", "Hit!!", NULL);
-	}
-	else
-	{
-		return !hit;
-	}
-	return hit;
-}
+//D3DSURFACE_DESC g_pBackBuffer;
+//D3DXVECTOR3 g_Mdesc;
+//D3DXVECTOR3 g_Voc;
+//
+//BOOL pointCheck(HWND hWnd)
+//{
+//	D3DXVECTOR3			vPickRayOrig;
+//	D3DXVECTOR3			vPickRayDir;
+//	LPD3DXBUFFER		pAllHits1;
+//	DWORD				CountOfHits1 = 0;
+//	RECT			    WndRect;
+//	POINT				ptCursor;
+//	BOOL				hit;
+//	GetCursorPos(&ptCursor);
+//	//ClientToScreen(hWnd,&ptCursor);
+//	GetWindowRect(hWnd,&WndRect);
+//	if(ptCursor.x>WndRect.right||ptCursor.x<WndRect.left||ptCursor.y>WndRect.bottom||ptCursor.y<WndRect.top)
+//	{
+//		return NULL;
+//	}
+//	D3DXMATRIX matProj;
+//	g_pDevice->GetTransform(D3DTS_PROJECTION, &matProj);
+//	D3DXMATRIX matView;
+//	g_pDevice->GetTransform(D3DTS_VIEW, &matView);
+//	D3DXMATRIX matWorld;
+//	g_pDevice->GetTransform(D3DTS_WORLD, &matWorld);
+//
+//	D3DXVECTOR3 v;
+//
+//	v.x =  ( ( ( 2.0f * ptCursor.x ) / g_pBackBuffer.Width  ) - 1 ) / matProj._11;
+//	v.y = -( ( ( 2.0f * ptCursor.y ) / g_pBackBuffer.Height ) - 1 ) / matProj._22;
+//	v.z =  1.0f;
+//
+//	D3DXMATRIX matWorldView =  matView;
+//	D3DXMATRIX m;
+//	D3DXMatrixInverse(&m, NULL, &matWorldView);
+//
+//	vPickRayDir.x  = v.x*m._11 + v.y*m._21 + v.z*m._31;
+//	vPickRayDir.y  = v.x*m._12 + v.y*m._22 + v.z*m._32;
+//	vPickRayDir.z  = v.x*m._13 + v.y*m._23 + v.z*m._33;
+//
+//	vPickRayOrig.x = m._41;
+//	vPickRayOrig.y = m._42;
+//	vPickRayOrig.z = m._43;
+//
+//	D3DXIntersect(g_pMesh1->GetMeshPointer(), &vPickRayOrig, &vPickRayDir, &hit, NULL, 
+//		NULL, NULL, NULL, &pAllHits1, &CountOfHits1);
+//	if(hit)
+//	{
+//		MessageBox(g_hWnd, "hehehe", "Hit!!", NULL);
+//	}
+//	else
+//	{
+//		return !hit;
+//	}
+//	return hit;
+//}
 
 void onCreatD3D()
 {
@@ -142,11 +148,11 @@ void onCreatD3D()
 	if (!g_pDevice)
 		return;
 
-	//拾取相关，临时代码。BackBuffer
-	IDirect3DSurface9* pBackBuffer = NULL;
-	g_pDevice->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &pBackBuffer);
-	pBackBuffer->GetDesc(&g_pBackBuffer);
-	pBackBuffer->Release();
+	////拾取相关，临时代码。BackBuffer
+	//IDirect3DSurface9* pBackBuffer = NULL;
+	//g_pDevice->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &pBackBuffer);
+	//pBackBuffer->GetDesc(&g_pBackBuffer);
+	//pBackBuffer->Release();
 
 
 	//设置渲染状态，设置启用深度值
@@ -159,16 +165,29 @@ void onCreatD3D()
 	g_pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	
 	//设置渲染状态，深度测试
-	g_pDevice->SetRenderState(D3DRS_ZFUNC, D3DCMP_LESS);   //将深度测试函数设为D3DCMP_LESS
+	g_pDevice->SetRenderState(D3DRS_ZFUNC, D3DCMP_LESS);     //将深度测试函数设为D3DCMP_LESS
 	g_pDevice->SetRenderState(D3DRS_ZWRITEENABLE, true);     //深度测试成功后，更新深度缓存
 
 	D3DXMatrixTranslation(&g_matWorld, 0.0F, 0.0F, 0.0F);
+
+	//初始化拾取系统
+	g_PickingSystem = new Picking(g_pDevice);
 }
 
 void CreateMesh()
 {
-	g_pMesh1 = new CMesh(g_pDevice);
-	g_pMesh1->CreateMesh("dragon.X");
+	g_pMesh1 = new D3DXMesh(g_pDevice);
+	g_pMesh1->Init("dragon.X");
+	g_pMesh1->CreateBoundingSphere(&g_BoundingSphere);
+
+	for (unsigned int i = 0; i < 10; i++)
+	{
+		MeshInstance* instance = new MeshInstance();
+		instance->Init(g_pMesh1);
+		instance->SetPosition(Vec3(i * 100, 0, 0));
+		instance->CalculateMatrix();
+		g_pActorVector.push_back(instance);
+	}
 
 	//g_pMesh2 = new CMesh(g_pDevice);
 	//g_pMesh2->CreateMesh("dragon.X");
@@ -213,7 +232,7 @@ void CreateAnimationMesh()
 =======
 		srand((int)time(0));
 
-		for (int i = 0; i < 100; i++)
+		for (int i = 0; i < 0; i++)
 		{
 			CAnimInstance* instance = new CAnimInstance();
 			instance->Init(g_pAnimation1);
@@ -328,10 +347,20 @@ void onLogic(float fElapsedTime)
 	g_pCamera->CalculateViewMatrix(&matView);
 	g_pDevice->SetTransform(D3DTS_VIEW, &matView);
 
+	
+
 	//把正确的世界变换矩阵存到g_matWorld中
 	D3DXMatrixTranslation(&g_matWorld, 0.0f, 0.0f, fPosZ);
 
-	pointCheck(g_hWnd);
+	/*pointCheck(g_hWnd);*/
+
+	////测试拾取系统
+	//int x = g_pDirectInput->MouseDX();
+	//int y = g_pDirectInput->MouseDY();
+	//if ( x > 200 && x < 1000 && y > 200 && y < 800)
+	//{
+	//	
+	//}
 }
 
 void onRender(float fElasedTime)
@@ -342,8 +371,14 @@ void onRender(float fElasedTime)
 
 	g_pDevice->BeginScene();
 
-	g_pMesh1->DrawMesh(g_matWorld);
+	//D3DXMatrixTranslation(&g_matWorld, 0.0f, 0.0f, 0.0f);
+
+	//g_pMesh1->Render(&g_matWorld);
 	
+	for (unsigned int i = 0; i < g_pActorVector.size(); i++)
+	{
+		g_pActorVector[i]->Render();
+	}
 
 	for (int i = 0; i < g_pAnimVector.size(); i++)
 	{
@@ -498,6 +533,14 @@ LRESULT CALLBACK WndProc(HWND g_hWnd, UINT message, WPARAM wParam, LPARAM lParam
 		if (wParam == VK_ESCAPE)
 			PostQuitMessage(0);
 		break;
+	case WM_LBUTTONDOWN:
+		{
+			int x = LOWORD(lParam);
+			int y = HIWORD(lParam);
+			if (g_PickingSystem->IsPicked(x, y, &g_BoundingSphere))
+			MessageBox(g_hWnd, "PickTest OK!", "Information", NULL);
+			break;
+		}
 	case WM_CLOSE:
 		DestroyWindow(g_hWnd);
 		break;

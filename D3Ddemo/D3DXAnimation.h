@@ -12,11 +12,11 @@
 #define __D3DXANIMATION_H_
 
 #include "AllocateHierarchy.h"
+#include "IRenderRes.h"
 
-class CD3DXAnimation
+class CD3DXAnimation : IRenderRes
 {
 private:
-	IDirect3DDevice9*	m_pDevice;					//D3D设备对象
 	CAllocateHierarchy* m_pAllocateHier;			//骨骼动画网格模型指针
 	LPD3DXFRAME			m_pFrameRoot;				//帧
 	LPD3DXANIMATIONCONTROLLER m_pAnimController;	//动画控制器
@@ -34,13 +34,13 @@ public:
 	//提供给外界的接口
 
 	//创建骨骼动画
-	HRESULT Init(LPCTSTR filename);
+	virtual HRESULT Init(LPCTSTR filename) override;
 
 	//复制骨骼动画控制器
 	LPD3DXANIMATIONCONTROLLER CloneAnimCtrl(void);
 
 	//绘制骨骼动画
-	void Render(const LPD3DXMATRIX matrix);
+	virtual void Render(const LPD3DXMATRIX matrix) override;
 
 };
 

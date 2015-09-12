@@ -13,7 +13,6 @@
 
 class CameraImpl
 {
-<<<<<<< HEAD
 	//摄像机类型
 	enum CamType	
 	{
@@ -24,24 +23,13 @@ class CameraImpl
 		TracView		//摄像机运镜
 	};
 
-=======
 private:
 	CCameraKernel* m_pKernel;	//摄像机核心指针
->>>>>>> origin/master
+
 public:
 	CameraImpl(void);
 	virtual ~CameraImpl(void);
 
-	//初始化
-<<<<<<< HEAD
-	void Init();
-
-	//更新
-	void Update();
-
-	//重置
-	void Reset();
-=======
 	virtual void Init(CCameraKernel* kernel) = 0;
 
 	//重置
@@ -49,7 +37,6 @@ public:
 
 	//更新
 	virtual void Update() = 0;
->>>>>>> origin/master
 
 	//操作
 	virtual void OnEvent() = 0;

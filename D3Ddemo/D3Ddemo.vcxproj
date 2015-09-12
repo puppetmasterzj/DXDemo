@@ -89,6 +89,7 @@
   <ItemGroup>
     <ClInclude Include="AllocateHierarchy.h" />
     <ClInclude Include="AnimInstance.h" />
+    <ClInclude Include="ApcD3DKernel.h" />
     <ClInclude Include="CameraImpl.h" />
     <ClInclude Include="CameraKernel.h" />
     <ClInclude Include="D3Ddemo.h" />
@@ -106,6 +107,7 @@
   <ItemGroup>
     <ClCompile Include="AllocateHierarchy.cpp" />
     <ClCompile Include="AnimInstance.cpp" />
+    <ClCompile Include="ApcD3DKernel.cpp" />
     <ClCompile Include="CameraImpl.cpp" />
     <ClCompile Include="CameraKernel.cpp" />
     <ClCompile Include="D3Ddemo.cpp" />

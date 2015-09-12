@@ -105,7 +105,7 @@ void onCreatD3D()
 void CreateMesh()
 {
 	g_pMesh1 = new CMesh(g_pDevice);
-	g_pMesh1->CreateMesh("dan.X");
+	g_pMesh1->CreateMesh("dragon.X");
 
 	//g_pMesh2 = new CMesh(g_pDevice);
 	//g_pMesh2->CreateMesh("dragon.X");
@@ -138,16 +138,6 @@ void CreateAnimationMesh()
 		D3DXMatrixScaling(&matWorld3, 0.1f, 0.1f, 0.1f);
 		matWorld1 = matWorld3 * matWorld1 *matWorld2;
 
-<<<<<<< HEAD
-	for (int i = 0; i < 10; i++)
-	{
-		CAnimInstance* instance = new CAnimInstance();
-		instance->Init(g_pAnimation);
-		D3DXMatrixTranslation(&matWorld4, i * 20.0f, -20.0f, 0.0f);  
-		instance->SetMatrix(&(matWorld4));
-		instance->PlayAnimation(instance->GetAnimationSet(rand()%1)->GetName(), true);
-		g_pAnimVector.push_back(instance);
-=======
 		srand((int)time(0));
 
 		for (int i = 0; i < 1; i++)
@@ -163,7 +153,6 @@ void CreateAnimationMesh()
 	else
 	{
 		MessageBox(g_hWnd, "¶ÁÈ¡Ä£ÐÍÊ§°Ü", "error", NULL);
->>>>>>> origin/master
 	}
 
 	

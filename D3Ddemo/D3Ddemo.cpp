@@ -234,7 +234,7 @@ void CreateAnimationMesh()
 	//g_pAnimation->Init("lxq.X");
 
 	g_pAnimation1 = new CD3DXAnimation(g_pDevice);
-	if (g_pAnimation1->Init("lxq.X") == S_OK)
+	if (g_pAnimation1->Init("tiny_4anim.X") == S_OK)
 	{
 		srand((int)time(0));
 
@@ -283,12 +283,12 @@ void CreateEnvironment()
 {
 	//创建地形系统
 	g_pTerrian = new CTerrain(g_pDevice);
-	g_pTerrian->LoadTerrainFromFile(TEXT("heighmap.raw"), TEXT("terraintexture.jpg"));  
+	g_pTerrian->LoadTerrainFromFile(TEXT("heighmap.raw"), TEXT("terrainstone.jpg"));  
 	g_pTerrian->InitTerrain(200, 200, 100.0f, 10.0f);
 
 	//创建天空盒
 	g_pSkybox = new CSkyBox(g_pDevice);  
-	g_pSkybox->InitSkyBox(10000.0f);  
+	g_pSkybox->InitSkyBox(20000.0f);  
 	g_pSkybox->InitSkyBoxTexture("skyfront.png", "skyback.png", "skyleft.png", "skyright.png", "skytop.png"); 
 
 	g_pParticle = new CParticle(g_pDevice);
@@ -376,10 +376,11 @@ void onLogic(float fElapsedTime)
 	for (unsigned int i = 0; i < g_pActorVector.size(); i++)
 	{
 		g_pActorVector[i]->Update(fElapsedTime);
+		g_pActorVector[i]->SetRotationZ(fPosZ);
 	}
 
 	//把正确的世界变换矩阵存到g_matWorld中
-	D3DXMatrixTranslation(&g_matWorld, 0.0f, 0.0f, fPosZ);
+	D3DXMatrixTranslation(&g_matWorld, 0.0f, 0.0f, 0.0f);
 
 	/*pointCheck(g_hWnd);*/
 

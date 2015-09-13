@@ -31,7 +31,7 @@ public:
 	bool PlayAnimation(LPCTSTR name, bool isLoop = true);
 
 	//更新动画
-	void Update(float delayTime);
+	virtual void Update(float delayTime) override;
 
 	//设置动画速度
 	void SetSpeed(float speed);

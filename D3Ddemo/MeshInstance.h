@@ -26,6 +26,8 @@ public:
 
 	//»æÖÆÊµÀı
 	//virtual void Render() override;
+
+
 };
 
 #endif

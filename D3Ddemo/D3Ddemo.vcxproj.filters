@@ -46,6 +46,10 @@
     <ClCompile Include="DirectInput.cpp">
       <Filter>ApcUISystem</Filter>
     </ClCompile>
+    <ClCompile Include="AABB.cpp">
+      <Filter>ApcPhysics</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ApcD3DKernel.h" />
@@ -96,6 +100,10 @@
     <ClInclude Include="DirectInput.h">
       <Filter>ApcUISystem</Filter>
     </ClInclude>
+    <ClInclude Include="AABB.h">
+      <Filter>ApcPhysics</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="D3Ddemo.rc" />
@@ -119,6 +127,9 @@
     </Filter>
     <Filter Include="ApcUISystem">
       <UniqueIdentifier>{58cee903-f40b-4b86-acb2-79f8a53968f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ApcEntity">
+      <UniqueIdentifier>{55a34638-312e-4ae2-8316-2d05b70d627e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

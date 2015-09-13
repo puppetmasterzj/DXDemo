@@ -25,7 +25,7 @@ void IRenderActor::Render()
 
 void IRenderActor::Update(float elapsedtime)
 {
-
+	CalculateMatrix();
 }
 
 bool IRenderActor::SetRes(IRenderRes* resource)
@@ -69,7 +69,10 @@ void IRenderActor::CalculateMatrix()
 	Matrix scalMatrix;
 	D3DXMatrixScaling(&scalMatrix, m_Scale.x, m_Scale.y, m_Scale.z);
 	//Ðý×ª¾ØÕó
-	//Matrix rotationMatrix;
-	//D3DXMatrixRotationX()
-	m_Matrix = scalMatrix * m_Matrix;
+	Matrix rotationMatrixX, rotationMatrixY, rotationMatrixZ;
+	D3DXMatrixRotationX(&rotationMatrixX, m_Rotation.x);
+	D3DXMatrixRotationY(&rotationMatrixY, m_Rotation.y);
+	D3DXMatrixRotationZ(&rotationMatrixZ, m_Rotation.z);
+
+	m_Matrix = scalMatrix *rotationMatrixX * rotationMatrixY * rotationMatrixZ * m_Matrix;
 }

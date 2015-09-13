@@ -30,6 +30,7 @@ bool CAnimInstance::PlayAnimation(LPCTSTR name, bool isLoop)
 
 void CAnimInstance::Update(float delayTime)
 {
+	IRenderActor::Update(delayTime);
 	m_pAnimController->AdvanceTime(delayTime, NULL); 
 }
 

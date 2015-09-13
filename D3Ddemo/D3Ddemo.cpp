@@ -176,10 +176,6 @@ void onCreatD3D()
 
 void CreateMesh()
 {
-<<<<<<< HEAD
-	g_pMesh1 = new CMesh(g_pDevice);
-	g_pMesh1->CreateMesh("dragon.X");
-=======
 	g_pMesh1 = new D3DXMesh(g_pDevice);
 	g_pMesh1->Init("dragon.X");
 	g_pMesh1->CreateBoundingSphere(&g_BoundingSphere);
@@ -192,7 +188,7 @@ void CreateMesh()
 		instance->CalculateMatrix();
 		g_pActorVector.push_back(instance);
 	}
->>>>>>> origin/master
+
 
 	//g_pMesh2 = new CMesh(g_pDevice);
 	//g_pMesh2->CreateMesh("dragon.X");

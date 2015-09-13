@@ -5,6 +5,7 @@
 #define __TERRAIN_H_
 #include <vector>
 #include <string>
+#include "IRenderActor.h"
 #pragma once
 struct TERRAINVERTEX
 {
@@ -14,7 +15,7 @@ struct TERRAINVERTEX
 	static const DWORD FVF = D3DFVF_XYZ | D3DFVF_TEX1;
 };
 
-class CTerrain
+class CTerrain : public IRenderActor
 {
 private:
 	LPDIRECT3DDEVICE9	m_pDevice;				//…Ë±∏÷∏’Î

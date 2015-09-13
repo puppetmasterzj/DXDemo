@@ -1,131 +1,124 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="资源文件">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Camera">
-      <UniqueIdentifier>{ec64d189-a0f2-452d-8c43-bd36cbc35895}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Animation">
-      <UniqueIdentifier>{6d9d7444-aabc-49a5-9557-b73217f92422}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SceneSystem">
-      <UniqueIdentifier>{e68afc1d-5349-46dc-8583-9e63a61c7bbe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="InputSystem">
-      <UniqueIdentifier>{57b9b61c-6243-4b75-9034-217962b8241a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mesh">
-      <UniqueIdentifier>{f370ee14-e9fe-46d8-bcd7-29c2cd79cf18}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="ApcD3DKernel.cpp" />
+    <ClCompile Include="D3Ddemo.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="AllocateHierarchy.cpp">
+      <Filter>ApcRenderObj</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimInstance.cpp">
+      <Filter>ApcRenderObj</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraImpl.cpp">
+      <Filter>ApcCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraKernel.cpp">
+      <Filter>ApcCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="D3DXAnimation.cpp">
+      <Filter>ApcRenderObj</Filter>
+    </ClCompile>
+    <ClCompile Include="D3DXMesh.cpp">
+      <Filter>ApcRenderObj</Filter>
+    </ClCompile>
+    <ClCompile Include="IRenderActor.cpp">
+      <Filter>ApcRenderObj</Filter>
+    </ClCompile>
+    <ClCompile Include="IRenderRes.cpp">
+      <Filter>ApcRenderObj</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshInstance.cpp">
+      <Filter>ApcRenderObj</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>ApcRenderObj</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyBox.cpp">
+      <Filter>ApcRenderObj</Filter>
+    </ClCompile>
+    <ClCompile Include="Terrain.cpp">
+      <Filter>ApcRenderObj</Filter>
+    </ClCompile>
+    <ClCompile Include="Picking.cpp">
+      <Filter>ApcPhysics</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectInput.cpp">
+      <Filter>ApcUISystem</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ApcD3DKernel.h" />
+    <ClInclude Include="D3Ddemo.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="TempDebug.h" />
+    <ClInclude Include="AllocateHierarchy.h">
+      <Filter>ApcRenderObj</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimInstance.h">
+      <Filter>ApcRenderObj</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraImpl.h">
+      <Filter>ApcCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraKernel.h">
+      <Filter>ApcCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="D3DXAnimation.h">
+      <Filter>ApcRenderObj</Filter>
+    </ClInclude>
+    <ClInclude Include="D3DXMesh.h">
+      <Filter>ApcRenderObj</Filter>
+    </ClInclude>
+    <ClInclude Include="IRenderActor.h">
+      <Filter>ApcRenderObj</Filter>
+    </ClInclude>
+    <ClInclude Include="IRenderRes.h">
+      <Filter>ApcRenderObj</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshInstance.h">
+      <Filter>ApcRenderObj</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>ApcRenderObj</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyBox.h">
+      <Filter>ApcRenderObj</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain.h">
+      <Filter>ApcRenderObj</Filter>
+    </ClInclude>
+    <ClInclude Include="Picking.h">
+      <Filter>ApcPhysics</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectInput.h">
+      <Filter>ApcUISystem</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="D3Ddemo.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="D3Ddemo.ico" />
+    <Image Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="AllocateHierarchy.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="D3DXAnimation.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle.h">
-      <Filter>SceneSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="SkyBox.h">
-      <Filter>SceneSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Terrain.h">
-      <Filter>SceneSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="DirectInput.h">
-      <Filter>InputSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource.h" />
-    <ClInclude Include="targetver.h" />
-    <ClInclude Include="D3Ddemo.h" />
-    <ClInclude Include="CameraKernel.h">
-      <Filter>Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="TempDebug.h" />
-    <ClInclude Include="AnimInstance.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraImpl.h">
-      <Filter>Camera</Filter>
-    </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="ApcD3DKernel.h" />
-=======
-    <ClInclude Include="Picking.h" />
-    <ClInclude Include="D3DXMesh.h">
-      <Filter>Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshInstance.h">
-      <Filter>Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="IRenderActor.h" />
-    <ClInclude Include="IRenderRes.h" />
->>>>>>> origin/master
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="AllocateHierarchy.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="D3DXAnimation.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle.cpp">
-      <Filter>SceneSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="SkyBox.cpp">
-      <Filter>SceneSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Terrain.cpp">
-      <Filter>SceneSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="DirectInput.cpp">
-      <Filter>InputSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="D3Ddemo.cpp" />
-    <ClCompile Include="CameraKernel.cpp">
-      <Filter>Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="AnimInstance.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraImpl.cpp">
-      <Filter>Camera</Filter>
-    </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="ApcD3DKernel.cpp" />
-=======
-    <ClCompile Include="Picking.cpp" />
-    <ClCompile Include="D3DXMesh.cpp">
-      <Filter>Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshInstance.cpp">
-      <Filter>Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="IRenderActor.cpp" />
-    <ClCompile Include="IRenderRes.cpp" />
->>>>>>> origin/master
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="D3Ddemo.rc">
-      <Filter>资源文件</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="small.ico">
-      <Filter>资源文件</Filter>
-    </Image>
-    <Image Include="D3Ddemo.ico">
-      <Filter>资源文件</Filter>
-    </Image>
+    <Filter Include="ApcCamera">
+      <UniqueIdentifier>{dc89fc86-dee5-42fd-9bac-db6321eba563}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ApcRenderObj">
+      <UniqueIdentifier>{2e25ace7-ff8a-4531-a28f-b9d85da0afb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ApcPhysics">
+      <UniqueIdentifier>{adf10615-6d58-45f8-943f-82410114cdc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ApcUISystem">
+      <UniqueIdentifier>{58cee903-f40b-4b86-acb2-79f8a53968f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

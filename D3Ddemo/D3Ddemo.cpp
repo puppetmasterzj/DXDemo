@@ -43,6 +43,10 @@ CD3DXAnimation* g_pAnimation1 = NULL;	//动画网格对象指针2
 std::vector<CAnimInstance*> g_pAnimVector;//动画实例指针容器
 std::vector<IRenderActor*> g_pActorVector;//可绘制网格实例指针容器
 
+CTerrain* g_pTerrian = NULL;			//地形系统指针
+CParticle* g_pParticle = NULL;
+CSkyBox* g_pSkybox = NULL;
+
 
 D3DXMATRIX g_matWorld;					//世界矩阵
 
@@ -131,16 +135,32 @@ void onCreatD3D()
 	d3dpp.BackBufferWidth = d3ddm.Width;
 	d3dpp.BackBufferHeight = d3ddm.Height;*/
 
-	d3dpp.Windowed = true;
+	/*d3dpp.Windowed = true;
 	d3dpp.BackBufferFormat = d3ddm.Format;
-	d3dpp.BackBufferCount = 1;
+	d3dpp.BackBufferCount = 1;*/
 
-	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;//交换后原缓冲区数据丢弃
+	d3dpp.BackBufferWidth            = 800;
+	d3dpp.BackBufferHeight           = 600;
+	d3dpp.BackBufferFormat           = D3DFMT_A8R8G8B8;
+	d3dpp.BackBufferCount            = 2;
+	d3dpp.MultiSampleType            = D3DMULTISAMPLE_NONE;
+	d3dpp.MultiSampleQuality         = 0;
+	d3dpp.SwapEffect                 = D3DSWAPEFFECT_DISCARD; //交换后原缓冲区数据丢弃
+	d3dpp.hDeviceWindow              = g_hWnd;
+	d3dpp.Windowed                   = true;
+	d3dpp.EnableAutoDepthStencil     = true;				//是否开启自动深度模板缓冲
+	d3dpp.AutoDepthStencilFormat     = D3DFMT_D24S8;		//当前自动深度模板缓冲的格式
+	//d3dpp.AutoDepthStencilFormat = D3DFMT_D16;//不能用这种格式，使用这种格式时，会出现拉远摄像机时，闪烁的现象
+	d3dpp.Flags                      = 0;
+	d3dpp.FullScreen_RefreshRateInHz = 0;
+	d3dpp.PresentationInterval       = D3DPRESENT_INTERVAL_IMMEDIATE;
 
-	//是否开启自动深度模板缓冲
-	d3dpp.EnableAutoDepthStencil = true;
-	//当前自动深度模板缓冲的格式
-	d3dpp.AutoDepthStencilFormat = D3DFMT_D16;//每个像素点有16位的存储空间，存储离摄像机的距离
+	//d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
+
+	
+	//d3dpp.EnableAutoDepthStencil = true;
+	
+	
 	
 
 	g_pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, g_hWnd, D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dpp, &g_pDevice);
@@ -176,10 +196,7 @@ void onCreatD3D()
 
 void CreateMesh()
 {
-<<<<<<< HEAD
-	g_pMesh1 = new CMesh(g_pDevice);
-	g_pMesh1->CreateMesh("dragon.X");
-=======
+
 	g_pMesh1 = new D3DXMesh(g_pDevice);
 	g_pMesh1->Init("dragon.X");
 	g_pMesh1->CreateBoundingSphere(&g_BoundingSphere);
@@ -188,11 +205,12 @@ void CreateMesh()
 	{
 		MeshInstance* instance = new MeshInstance();
 		instance->Init(g_pMesh1);
-		instance->SetPosition(Vec3(i * 100, 0, 0));
+		instance->SetPosition(Vec3(i * 100, 1000, 0));
+		instance->SetScale(Vec3(i * 0.1, i * 0.1, i * 0.1));
 		instance->CalculateMatrix();
 		g_pActorVector.push_back(instance);
 	}
->>>>>>> origin/master
+
 
 	//g_pMesh2 = new CMesh(g_pDevice);
 	//g_pMesh2->CreateMesh("dragon.X");
@@ -204,8 +222,8 @@ void CreateMesh()
 void CreateCamera()
 {
 	g_pCamera = new CCameraKernel(g_pDevice);
-	g_pCamera->SetCameraPosition(&D3DXVECTOR3(0.0f, 0.0f, -500.0f));
-	g_pCamera->SetTargetPosition(&D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	g_pCamera->SetCameraPosition(&D3DXVECTOR3(0.0f, 1000.0f, -500.0f));
+	g_pCamera->SetTargetPosition(&D3DXVECTOR3(0.0f, 1000.0f, 0.0f));
 	g_pCamera->SetViewMatrix();
 	g_pCamera->SetProjectionMartix();
 }
@@ -216,25 +234,20 @@ void CreateAnimationMesh()
 	//g_pAnimation->Init("lxq.X");
 
 	g_pAnimation1 = new CD3DXAnimation(g_pDevice);
-	if (g_pAnimation1->Init("tiny.X") == S_OK)
+	if (g_pAnimation1->Init("lxq.X") == S_OK)
 	{
-		D3DXMATRIX matWorld1, matWorld2, matWorld3, matWorld4, matWorld5;  
-		D3DXMatrixRotationX(&matWorld2, -90.0f);
-		D3DXMatrixRotationZ(&matWorld1, 180.0f);
-		D3DXMatrixRotationY(&matWorld5, -30.0f);
-		D3DXMatrixScaling(&matWorld3, 0.1f, 0.1f, 0.1f);
-		matWorld1 = matWorld3 * matWorld1 *matWorld2;
-
 		srand((int)time(0));
 
-		for (int i = 0; i < 0; i++)
+		for (int i = 0; i < 10; i++)
 		{
 			CAnimInstance* instance = new CAnimInstance();
 			instance->Init(g_pAnimation1);
-			D3DXMatrixTranslation(&matWorld4, i * 15.0f, -20.0f, 0.0f);  
-			instance->SetMatrix(&(matWorld1 * matWorld4));
+			//D3DXMatrixTranslation(&matWorld4, i * 15.0f, 1000.0f, 0.0f);  
+			instance->SetPosition(Vec3(i * 100.0f, 1000.0f, 0.0f));
+			instance->SetScale(Vec3(1.0f, 1.0f, 1.0f));
+			instance->CalculateMatrix();
 			instance->PlayAnimation(instance->GetAnimationSet(rand()%1)->GetName(), true);
-			g_pAnimVector.push_back(instance);
+			g_pActorVector.push_back(instance);
 		}
 	}
 	else
@@ -266,6 +279,22 @@ void SetLight()
 	g_pDevice->SetRenderState(D3DRS_SPECULARENABLE, true);
 }
 
+void CreateEnvironment()
+{
+	//创建地形系统
+	g_pTerrian = new CTerrain(g_pDevice);
+	g_pTerrian->LoadTerrainFromFile(TEXT("heighmap.raw"), TEXT("terraintexture.jpg"));  
+	g_pTerrian->InitTerrain(200, 200, 100.0f, 10.0f);
+
+	//创建天空盒
+	g_pSkybox = new CSkyBox(g_pDevice);  
+	g_pSkybox->InitSkyBox(10000.0f);  
+	g_pSkybox->InitSkyBoxTexture("skyfront.png", "skyback.png", "skyleft.png", "skyright.png", "skytop.png"); 
+
+	g_pParticle = new CParticle(g_pDevice);
+	g_pParticle->InitParticle();
+}
+
 
 
 void onInit()
@@ -284,6 +313,9 @@ void onInit()
 
 	//创建骨骼动画
 	CreateAnimationMesh();
+
+	//初始化环境
+	CreateEnvironment();
 }
 
 
@@ -341,7 +373,10 @@ void onLogic(float fElapsedTime)
 	g_pCamera->CalculateViewMatrix(&matView);
 	g_pDevice->SetTransform(D3DTS_VIEW, &matView);
 
-	
+	for (unsigned int i = 0; i < g_pActorVector.size(); i++)
+	{
+		g_pActorVector[i]->Update(fElapsedTime);
+	}
 
 	//把正确的世界变换矩阵存到g_matWorld中
 	D3DXMatrixTranslation(&g_matWorld, 0.0f, 0.0f, fPosZ);
@@ -373,14 +408,11 @@ void onRender(float fElasedTime)
 	{
 		g_pActorVector[i]->Render();
 	}
-
-	for (int i = 0; i < g_pAnimVector.size(); i++)
-	{
-		g_pAnimVector[i]->Update(fElasedTime);
-		g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
-		g_pAnimVector[i]->Render();
-	}
-
+	//g_pDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+	g_pSkybox->RenderSkyBox(&g_matWorld);
+	g_pTerrian->RenderTerrain(&g_matWorld, false);
+	g_pParticle->UpdateParticle(fElasedTime);
+	g_pParticle->RenderParticle();
 	g_pDevice->EndScene();
 
 

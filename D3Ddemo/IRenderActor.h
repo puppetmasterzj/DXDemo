@@ -19,6 +19,7 @@ private:
 	Vec3 m_Rotation;		//旋转角度（与原始模型相比，对应x,y,z轴旋转的角度）
 	Matrix m_Matrix;		//世界矩阵
 	IRenderRes* m_Res;		//资源指针
+	bool m_bIsFrameMode;	//是否线框渲染
 public:
 	IRenderActor();
 	virtual ~IRenderActor();
@@ -26,8 +27,11 @@ public:
 	//初始化
 	virtual bool Init(IRenderRes* resource);
 
+	//更新
+	virtual void Update(float elapsedtime);
+
 	//绘制
-	virtual void Render() = 0;
+	virtual void Render();
 
 	//资源指针
 	bool SetRes(IRenderRes* resource);
@@ -46,8 +50,10 @@ public:
 	//缩放(用一个三元数表示，各个方向都可能缩放)
 	void SetScale(const Vec3& scale);
 	
-	//旋转
-	void SetRotationX();
+	//旋转(绕X, Y, Z轴旋转)
+	void SetRotationX(float angle);
+	void SetRotationY(float angle);
+	void SetRotationZ(float angle);
 
 
 	//计算世界矩阵

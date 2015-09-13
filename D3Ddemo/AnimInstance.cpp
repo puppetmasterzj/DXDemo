@@ -12,16 +12,13 @@ CAnimInstance::~CAnimInstance(void)
 	//delete m_pAnimController;
 }
 
-bool CAnimInstance::Init(CD3DXAnimation* mesh)
+bool CAnimInstance::Init(IRenderRes* resource)
 {
-	m_pAnimMesh = mesh;
-	return m_pAnimController = mesh->CloneAnimCtrl();
+	IRenderActor::Init(resource);
+	return m_pAnimController = ((CD3DXAnimation*)resource)->CloneAnimCtrl();
 }
 
-void CAnimInstance::Render()
-{
-	m_pAnimMesh->Render(&m_Matrix);
-}
+
 
 bool CAnimInstance::PlayAnimation(LPCTSTR name, bool isLoop)
 {
@@ -33,17 +30,13 @@ bool CAnimInstance::PlayAnimation(LPCTSTR name, bool isLoop)
 
 void CAnimInstance::Update(float delayTime)
 {
+	IRenderActor::Update(delayTime);
 	m_pAnimController->AdvanceTime(delayTime, NULL); 
 }
 
 void CAnimInstance::SetSpeed(float speed)
 {
 	m_fSpeed = speed;
-}
-
-void CAnimInstance::SetMatrix(const LPD3DXMATRIX matrix)
-{
-	m_Matrix = *matrix;
 }
 
 int CAnimInstance::GetAnimationNum() const

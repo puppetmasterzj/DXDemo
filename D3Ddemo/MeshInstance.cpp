@@ -20,9 +20,9 @@ MeshInstance::~MeshInstance(void)
 //		
 //}
 
-void MeshInstance::Render()
-{
-	GetRes()->Render(&GetMatrix());
-}
-
+//void MeshInstance::Render()
+//{
+//	GetRes()->Render(&GetMatrix());
+//}
+//
 

@@ -25,7 +25,9 @@ public:
 	//virtual bool Init(IRenderRes* resource) override;
 
 	//»æÖÆÊµÀý
-	virtual void Render() override;
+	//virtual void Render() override;
+
+
 };
 
 #endif

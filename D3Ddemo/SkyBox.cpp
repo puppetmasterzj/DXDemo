@@ -3,12 +3,12 @@
 
 
 CSkyBox::CSkyBox(LPDIRECT3DDEVICE9 pDevice)
+	:m_pDevice(pDevice),
+	 m_pVertexBuffer(NULL),
+	 m_fLength(0.0f)
 {
-	m_pDevice = pDevice;
-	m_pVertexBuffer = NULL;
 	for (int i = 0; i < 5; i++)
 		m_pTexture[i] = NULL;
-	m_fLength = 0.0f;
 }
 
 
@@ -147,6 +147,8 @@ void CSkyBox::RenderSkyBox(D3DXMATRIX *matWorld, bool bRenderFrame /* = false */
 	m_pDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
 	//纹理颜色混合的第一个参数取纹理的颜色值
 	m_pDevice->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+	m_pDevice->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_MIRROR);
+	m_pDevice->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_MIRROR);
 	//世界变换
 	m_pDevice->SetTransform(D3DTS_WORLD, matWorld);
 	//设置资源流

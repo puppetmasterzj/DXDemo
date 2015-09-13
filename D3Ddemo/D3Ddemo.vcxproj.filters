@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+<<<<<<< HEAD
     <ClCompile Include="AllocateHierarchy.cpp" />
     <ClCompile Include="AnimInstance.cpp" />
     <ClCompile Include="ApcD3DKernel.cpp" />
@@ -50,5 +51,137 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
+=======
+    <ClCompile Include="ApcD3DKernel.cpp" />
+    <ClCompile Include="D3Ddemo.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="AllocateHierarchy.cpp">
+      <Filter>ApcRenderObj</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimInstance.cpp">
+      <Filter>ApcRenderObj</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraImpl.cpp">
+      <Filter>ApcCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraKernel.cpp">
+      <Filter>ApcCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="D3DXAnimation.cpp">
+      <Filter>ApcRenderObj</Filter>
+    </ClCompile>
+    <ClCompile Include="D3DXMesh.cpp">
+      <Filter>ApcRenderObj</Filter>
+    </ClCompile>
+    <ClCompile Include="IRenderActor.cpp">
+      <Filter>ApcRenderObj</Filter>
+    </ClCompile>
+    <ClCompile Include="IRenderRes.cpp">
+      <Filter>ApcRenderObj</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshInstance.cpp">
+      <Filter>ApcRenderObj</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>ApcRenderObj</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyBox.cpp">
+      <Filter>ApcRenderObj</Filter>
+    </ClCompile>
+    <ClCompile Include="Terrain.cpp">
+      <Filter>ApcRenderObj</Filter>
+    </ClCompile>
+    <ClCompile Include="Picking.cpp">
+      <Filter>ApcPhysics</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectInput.cpp">
+      <Filter>ApcUISystem</Filter>
+    </ClCompile>
+    <ClCompile Include="AABB.cpp">
+      <Filter>ApcPhysics</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ApcD3DKernel.h" />
+    <ClInclude Include="D3Ddemo.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="TempDebug.h" />
+    <ClInclude Include="AllocateHierarchy.h">
+      <Filter>ApcRenderObj</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimInstance.h">
+      <Filter>ApcRenderObj</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraImpl.h">
+      <Filter>ApcCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraKernel.h">
+      <Filter>ApcCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="D3DXAnimation.h">
+      <Filter>ApcRenderObj</Filter>
+    </ClInclude>
+    <ClInclude Include="D3DXMesh.h">
+      <Filter>ApcRenderObj</Filter>
+    </ClInclude>
+    <ClInclude Include="IRenderActor.h">
+      <Filter>ApcRenderObj</Filter>
+    </ClInclude>
+    <ClInclude Include="IRenderRes.h">
+      <Filter>ApcRenderObj</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshInstance.h">
+      <Filter>ApcRenderObj</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>ApcRenderObj</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyBox.h">
+      <Filter>ApcRenderObj</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain.h">
+      <Filter>ApcRenderObj</Filter>
+    </ClInclude>
+    <ClInclude Include="Picking.h">
+      <Filter>ApcPhysics</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectInput.h">
+      <Filter>ApcUISystem</Filter>
+    </ClInclude>
+    <ClInclude Include="AABB.h">
+      <Filter>ApcPhysics</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="D3Ddemo.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="D3Ddemo.ico" />
+    <Image Include="small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="ApcCamera">
+      <UniqueIdentifier>{dc89fc86-dee5-42fd-9bac-db6321eba563}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ApcRenderObj">
+      <UniqueIdentifier>{2e25ace7-ff8a-4531-a28f-b9d85da0afb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ApcPhysics">
+      <UniqueIdentifier>{adf10615-6d58-45f8-943f-82410114cdc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ApcUISystem">
+      <UniqueIdentifier>{58cee903-f40b-4b86-acb2-79f8a53968f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ApcEntity">
+      <UniqueIdentifier>{55a34638-312e-4ae2-8316-2d05b70d627e}</UniqueIdentifier>
+    </Filter>
+>>>>>>> origin/master
   </ItemGroup>
 </Project>

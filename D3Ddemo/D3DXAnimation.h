@@ -14,7 +14,7 @@
 #include "AllocateHierarchy.h"
 #include "IRenderRes.h"
 
-class CD3DXAnimation : IRenderRes
+class CD3DXAnimation : public IRenderRes
 {
 private:
 	CAllocateHierarchy* m_pAllocateHier;			//骨骼动画网格模型指针

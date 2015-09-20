@@ -39,7 +39,7 @@ private:
 	D3DMATERIAL9* m_pMaterials;				//网格材质信息
 	DWORD m_dwNumMtrls;						//网格材质数目
 
-	LPD3DXMESH m_pBoundingSphere;			//模型包围球
+	LPD3DXMESH m_pBoundingSphere;			//模型包围球		
 };
 
 

@@ -50,6 +50,7 @@
       <Filter>ApcPhysics</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="IBounding.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ApcD3DKernel.h" />
@@ -104,6 +105,7 @@
       <Filter>ApcPhysics</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="IBounding.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="D3Ddemo.rc" />

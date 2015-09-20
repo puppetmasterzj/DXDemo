@@ -41,7 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>.;..;E:\Include;$(IncludePath)</IncludePath>
+    <IncludePath>.;..;$(ProjectDir)\Camera;E:\Include;$(IncludePath)</IncludePath>
     <LibraryPath>E:\Lib\x86;E:\Lib\x64;$(LibraryPath)</LibraryPath>
     <IntDir>$(SolutionDir)\Temp</IntDir>
   </PropertyGroup>

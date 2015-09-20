@@ -196,7 +196,10 @@ void onCreatD3D()
 
 void CreateMesh()
 {
+<<<<<<< HEAD
+=======
 
+>>>>>>> origin/master
 	g_pMesh1 = new D3DXMesh(g_pDevice);
 	g_pMesh1->Init("dragon.X");
 	g_pMesh1->CreateBoundingSphere(&g_BoundingSphere);
